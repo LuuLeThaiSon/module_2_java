@@ -1,6 +1,7 @@
 package access_modifier.static_method;
 
 public class Student {
+    static int a;
     private int rollno;
     private String name;
     private static String college = "BBDIT";
@@ -13,6 +14,7 @@ public class Student {
     static void change() {
         college = "CODEGYM";
     }
+
 
     void display() {
         System.out.println(rollno + " " + name + " " + college);

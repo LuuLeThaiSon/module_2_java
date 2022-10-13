@@ -4,7 +4,12 @@ public class Student {
     private String name = "John";
     private String classes = "C02";
 
-    Student() {}
+    static int test0 = 1;
+
+    public static void test(){
+        System.out.println("test static method");
+    };
+    Student() {};
 
     public void setName(String name) {
         this.name = name;
