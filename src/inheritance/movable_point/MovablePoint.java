@@ -45,4 +45,11 @@ public class MovablePoint extends Point2D {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return "MovablePoint{" +
+                "xSpeed=" + this.getX() +
+                ", ySpeed=" + this.getY() +
+                '}';
+    }
 }
