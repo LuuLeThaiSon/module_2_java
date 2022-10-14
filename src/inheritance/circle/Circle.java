@@ -6,6 +6,8 @@ public class Circle {
 
     public Circle() {}
 
+    public Circle(double radius) {}
+
     public Circle(double radius, String color) {
         this.radius = radius;
         this.color = color;
