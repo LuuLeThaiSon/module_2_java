@@ -1,4 +1,4 @@
-package array_list.demo;
+package array_list_linked_list.demo_array_list;
 
 import java.util.Arrays;
 
