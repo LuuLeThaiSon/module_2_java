@@ -2,6 +2,7 @@ package search.binary_search;
 
 public class BinarySearch {
     public int binarySearch(int[] arr, int key) {
+
         int low = 0;
         int high = arr.length - 1;
 
