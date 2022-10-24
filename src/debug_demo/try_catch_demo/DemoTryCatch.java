@@ -1,4 +1,4 @@
-package debug_demo.try_catch;
+package debug_demo.try_catch_demo;
 
 import java.util.Scanner;
 
