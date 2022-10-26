@@ -1,80 +1,67 @@
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Test {
-    public static void main(String[] args) throws ParseException {
-        Scanner scanner = new Scanner(System.in);
+    public static int xnxx(Scanner scanner){
+        int a;
+        try {
+            System.out.println("nhap a");
+            a = Integer.parseInt(scanner.nextLine());
+            if (a < 0) {
+                throw new Exception();
+            }
+            return a;
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        } catch (Exception e) {
+            System.out.println("khong hop le");
+            return xnxx(scanner);
+        }
 
-        System.out.println("");
-        Date date;
-        date = simpleDateFormat.parse(scanner.nextLine());
-        System.out.println(date);
     }
 
-//        ArrayList<Integer> list =new ArrayList<>();
-//        list.add(1);
-//        list.add(1);
-//        list.add(2);
-//        list.add(3);
-//        list.add(4);
-//        list.add(5);
-//        System.out.println(list);
+    public static void main(String[] args) throws Exception {
+//        Scanner scanner = new Scanner(System.in);
+////        System.out.println(xnxx(scanner));
+//        int[] arr = {999999,6,4,1,213,55,212,765,234,8,2,3489,894,56234,3,6,8,5,2};
 //
+//        int max2 = arr[1];
+//        int max1 = arr[1];
 //
-//        List<Integer> list1 = new LinkedList<>();
-//        list1.add(1);
-//        list1.add(5);
-//        list1.add(2);
-//        list1.add(3);
-//        list1.add(4);
-//        list1.remove(2);
-//        Set<Integer> set = new HashSet<>();
+//        boolean flag = false;
 //
-////        System.out.println(list1.get(2));
-//
-//        list.retainAll(list1);
-//        System.out.println(list1);
-//
-//        System.out.println("------");
-//        System.out.println(list);
-//
-//        list.set(2,5);
-//        System.out.println(list);
-//
-//        LinkedList<Integer> list2 = new LinkedList<>();
-//        ArrayList<Integer> list3;
-//        list3 = (ArrayList<Integer>) list.clone();
-//
-//        Map<Integer,Integer> map = new HashMap<>();
-//        Map<Integer,Integer> map1 = new TreeMap<>();
-//        Map<Integer,Integer> map2 = new LinkedHashMap<>();
-//        map2.put(1,11);
-//        map2.put(2,22);
-//        map2.put(3,33);
-//        map2.put(4,44);
-//        map2.put(5,55);
-//        Set<Map.Entry<Integer, Integer>> a = map2.entrySet();
-//        for (Map.Entry<Integer, Integer> m : a) {
-//            System.out.println(m.getValue());
+//        for (int i = 2; i < arr.length; i++) {
+//            if (max1 < arr[i]) {
+//                max2 = max1;
+//                max1 = arr[i];
+//                flag = true;
+//            }
 //        }
 //
-//        System.out.println(map2.entrySet());
+//            if (max1 < arr[0]) {
+//                if (max2 < arr[0]) max2 = max1;
+//            }
 //
-//        System.out.println(map2.get(4));
+//        System.out.println(max2);
 //
-//        System.out.println(map2.keySet());
+////            if (!flag) {
+////                if (arr[0] > arr[1]) {
+////                    max2 = arr[1];
+////                } else {
+////                    max1 = arr[0];
+////                }
+////            } else {
+////                max2 = max1;
+////            }
+////        }
 //
-//        System.out.println(map2.values());
-//
-//        map2.remove(2);
-//        System.out.println(map2);
-//
-//        System.out.println(map2.hashCode());
-//    }
+////        System.out.println(max2);
+
+        LocalDate localDate = LocalDate.now();
+        System.out.println(localDate);
+
+        LocalDate localDate1 = LocalDate.parse("2022-10-22");
+        System.out.println(localDate1);
+    }
 
 }
 
