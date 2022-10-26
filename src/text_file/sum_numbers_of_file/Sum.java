@@ -8,8 +8,6 @@ import java.io.FileReader;
 public class Sum {
     public static void main(String[] args) {
         readFile("src/text_file/sum_numbers_of_file/numbers.txt");
-
-
     }
 
     public static void readFile(String filePath) {
