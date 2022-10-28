@@ -12,8 +12,22 @@ public class ProductManager {
         products = new ArrayList<>();
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
     public void writeFile(String filePath, List<Product> products) {
+        File file = new File(filePath);
         try {
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(filePath));
 
             objectOutputStream.writeObject(products);
@@ -25,8 +39,10 @@ public class ProductManager {
 
     public List<Product> readFile(String filePath) {
         List<Product> products = new ArrayList<>();
+        File file = new File(filePath);
 
         try {
+
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(filePath));
 
             products = (List<Product>) objectInputStream.readObject();
@@ -34,7 +50,7 @@ public class ProductManager {
             objectInputStream.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.print("");
         }
 
         return products;
@@ -58,8 +74,6 @@ public class ProductManager {
         } catch (Exception e) {
             System.err.println("Errol");
         }
-
-
 
         writeFile("src/binary_file/product/product.txt", products);
     }
@@ -118,9 +132,13 @@ public class ProductManager {
     }
 
     public void display() {
-        products = readFile("src/binary_file/product/product.txt");
-        for (Product product : products) {
-            System.out.println(product);
+        try {
+            products = readFile("src/binary_file/product/product.txt");
+            for (Product product : products) {
+                System.out.println(product);
+            }
+        } catch (Exception e) {
+            System.out.print("");
         }
     }
 }

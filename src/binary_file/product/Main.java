@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ProductManager productManager = new ProductManager();
-
+        productManager.setProducts(productManager.readFile("src/binary_file/product/product.txt"));
         do {
             try {
                 System.out.println("MENU");
