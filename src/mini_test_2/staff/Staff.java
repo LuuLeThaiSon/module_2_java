@@ -1,6 +1,8 @@
 package mini_test_2.staff;
 
-public abstract class Staff implements Comparable<Staff> {
+import java.io.Serializable;
+
+public abstract class Staff implements Comparable<Staff>, Serializable {
     private String id;
     private String name;
     private int age;

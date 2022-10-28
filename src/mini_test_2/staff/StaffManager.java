@@ -1,5 +1,6 @@
 package mini_test_2.staff;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -8,97 +9,190 @@ public class StaffManager {
     ArrayList<Staff> staffs;
 
     public StaffManager() {
-        staffs = new ArrayList<>();
+        staffs = readFile();
+    }
+
+    private void writeFile() {
+        File file = new File("src/mini_test_2/staff/data.txt");
+
+        try {
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
+
+            objectOutputStream.writeObject(staffs);
+
+            objectOutputStream.close();
+
+        } catch (Exception e) {
+            System.out.print("");
+        }
+    }
+
+    private ArrayList<Staff> readFile() {
+        File file = new File("src/mini_test_2/staff/data.txt");
+        ArrayList<Staff> staffArrayList = new ArrayList<>();
+
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileInputStream fileInputStream = new FileInputStream(file);
+            if (fileInputStream.available() > 0) {
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                staffArrayList = (ArrayList<Staff>) objectInputStream.readObject();
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        return staffArrayList;
     }
 
     public void addStaff(int choice, Scanner scanner) {
-        if (choice < 0 || choice > 2) {
-            System.out.println("Nhập lại lựa chọn");
-        } else {
-            System.out.print("1. Nhập mã nhân viên: ");
-            String id = scanner.nextLine();
-            System.out.print("2. Nhập họ và tên nhân viên: ");
-            String name = scanner.nextLine();
-            System.out.print("3. Nhập tuổi nhân viên: ");
-            int age = Integer.parseInt(scanner.nextLine());
-            System.out.print("4. Nhập số điện thoại nhân viên: ");
-            String phoneNumber = scanner.nextLine();
-            System.out.print("5. Nhập email nhân viên: ");
-            String email = scanner.nextLine();
-
-            if (choice == 1) {
-                System.out.print("6. Nhập lương cứng: ");
-                double hardSalary = Double.parseDouble(scanner.nextLine());
-                staffs.add(new FullTimeStaff(id, name, age, phoneNumber, email, hardSalary));
-                System.out.println("Thêm thành công!!!");
+        try {
+            if (choice < 0 || choice > 2) {
+                System.out.println("Nhập lại lựa chọn");
             } else {
-                System.out.print("6. Nhập số giờ làm việc: ");
-                float workHour = Float.parseFloat(scanner.nextLine());
-                staffs.add(new PartTimeStaff(id, name, age, phoneNumber, email, workHour));
+                System.out.print("1. Nhập mã nhân viên: ");
+                String id = scanner.nextLine();
+                System.out.print("2. Nhập họ và tên nhân viên: ");
+                String name = scanner.nextLine();
+                System.out.print("3. Nhập tuổi nhân viên: ");
+                int age = Integer.parseInt(scanner.nextLine());
+                System.out.print("4. Nhập số điện thoại nhân viên: ");
+                String phoneNumber = scanner.nextLine();
+                System.out.print("5. Nhập email nhân viên: ");
+                String email = scanner.nextLine();
+
+                if (choice == 1) {
+                    System.out.print("6. Nhập lương cứng: ");
+                    double hardSalary = Double.parseDouble(scanner.nextLine());
+                    staffs.add(new FullTimeStaff(id, name, age, phoneNumber, email, hardSalary));
+                    System.out.println("Thêm thành công!!!");
+                } else {
+                    System.out.print("6. Nhập số giờ làm việc: ");
+                    float workHour = Float.parseFloat(scanner.nextLine());
+                    staffs.add(new PartTimeStaff(id, name, age, phoneNumber, email, workHour));
+                }
             }
+        } catch (Exception e) {
+            System.out.println("Sai định dạng. Nhập lại đê!");
         }
+
+        writeFile();
     }
 
     public void updateStaff(Scanner scanner) {
-        System.out.print("Nhập mã nhân viên: ");
-        String id = scanner.nextLine();
-        int updateIndex = -1;
-        boolean flag = false;
-        for (int i = 0; i < staffs.size(); i++) {
-            if (staffs.get(i).getId().equals(id)) {
-                flag = true;
-                updateIndex = i;
-                break;
-            }
-        }
-
-        if (flag) {
-            System.out.print("1. Nhập họ và tên nhân viên: ");
-            staffs.get(updateIndex).setName(scanner.nextLine());
-            System.out.print("2. Nhập tuổi nhân viên: ");
-            staffs.get(updateIndex).setAge(Integer.parseInt(scanner.nextLine()));
-            System.out.print("3. Nhập số điện thoại nhân viên: ");
-            staffs.get(updateIndex).setPhoneNumber(scanner.nextLine());
-            System.out.print("4. Nhập email nhân viên: ");
-            staffs.get(updateIndex).setEmail(scanner.nextLine());
-            if (staffs.get(updateIndex) instanceof FullTimeStaff) {
-                System.out.print("5. Nhập lương cứng: ");
-                ((FullTimeStaff) staffs.get(updateIndex)).setHardSalary(Double.parseDouble(scanner.nextLine()));
-                System.out.print("6. Nhập tiền thưởng: ");
-                ((FullTimeStaff) staffs.get(updateIndex)).setBonus(Double.parseDouble(scanner.nextLine()));
-                System.out.print("7. Nhập tiền phạt: ");
-                ((FullTimeStaff) staffs.get(updateIndex)).setPenalty(Double.parseDouble(scanner.nextLine()));
-                System.out.println("Sửa thành công");
+        try {
+            if (staffs.isEmpty()) {
+                System.out.println("Danh sách nhân viên trống");
             } else {
-                System.out.print("5. Nhập số giờ làm việc: ");
-                ((PartTimeStaff)staffs.get(updateIndex)).setWorkHour(Float.parseFloat(scanner.nextLine()));
-                System.out.println("Sửa thành công");
+                System.out.print("Nhập mã nhân viên: ");
+                String id = scanner.nextLine();
+                int updateIndex = -1;
+                boolean flag = false;
+                for (int i = 0; i < staffs.size(); i++) {
+                    if (staffs.get(i).getId().equals(id)) {
+                        flag = true;
+                        updateIndex = i;
+                        break;
+                    }
+                }
+
+                if (flag) {
+                    System.out.println("Để trống nếu không có sự thay đổi");
+                    System.out.print("1. Nhập họ và tên nhân viên: ");
+                    String name = scanner.nextLine();
+                    if (!name.equals("")) {
+                        staffs.get(updateIndex).setName(name);
+                    }
+
+                    System.out.print("2. Nhập tuổi nhân viên: ");
+                    String age = scanner.nextLine();
+                    if (!age.equals("")) {
+                        staffs.get(updateIndex).setAge(Integer.parseInt(age));
+                    }
+
+                    System.out.print("3. Nhập số điện thoại nhân viên: ");
+                    String phoneNumber = scanner.nextLine();
+                    if (!phoneNumber.equals("")) {
+                        staffs.get(updateIndex).setPhoneNumber(phoneNumber);
+                    }
+
+                    System.out.print("4. Nhập email nhân viên: ");
+                    String email = scanner.nextLine();
+                    if (!email.equals("")) {
+                        staffs.get(updateIndex).setEmail(email);
+                    }
+
+                    if (staffs.get(updateIndex) instanceof FullTimeStaff) {
+                        System.out.print("5. Nhập lương cứng: ");
+                        String hardSalary = scanner.nextLine();
+                        if (!hardSalary.equals("")) {
+                            ((FullTimeStaff) staffs.get(updateIndex)).setHardSalary(Double.parseDouble(hardSalary));
+                        }
+
+                        System.out.print("6. Nhập tiền thưởng: ");
+                        String bonus = scanner.nextLine();
+                        if (!bonus.equals("")) {
+                            ((FullTimeStaff) staffs.get(updateIndex)).setBonus(Double.parseDouble(bonus));
+                        }
+
+                        System.out.print("7. Nhập tiền phạt: ");
+                        String penalty = scanner.nextLine();
+                        if (!penalty.equals("")) {
+                            ((FullTimeStaff) staffs.get(updateIndex)).setPenalty(Double.parseDouble(penalty));
+                        }
+
+                        System.out.println("Sửa thành công");
+                    } else {
+                        System.out.print("5. Nhập số giờ làm việc: ");
+                        String workHour = scanner.nextLine();
+                        if (!workHour.equals("")) {
+                            ((PartTimeStaff)staffs.get(updateIndex)).setWorkHour(Float.parseFloat(workHour));
+                        }
+                        System.out.println("Sửa thành công");
+                    }
+                } else {
+                    System.out.println("Không có nhân viên có mã " + id);
+                }
             }
-        } else {
-            System.out.println("Không có nhân viên có mã " + id);
+
+        } catch (Exception e) {
+            System.out.println("Sai định dạng. Nhập lại đê!");
         }
+        writeFile();
     }
 
     public void deleteById(Scanner scanner) {
-        System.out.print("Nhập mã nhân viên: ");
-        String id = scanner.nextLine();
+        try {
+            System.out.print("Nhập mã nhân viên: ");
+            String id = scanner.nextLine();
 
-        int deleteIndex = -1;
-        boolean flag = false;
-        for (int i = 0; i < staffs.size(); i++) {
-            if (staffs.get(i).getId().equals(id)) {
-                deleteIndex = i;
-                flag = true;
-                break;
+            int deleteIndex = -1;
+            boolean flag = false;
+            for (int i = 0; i < staffs.size(); i++) {
+                if (staffs.get(i).getId().equals(id)) {
+                    deleteIndex = i;
+                    flag = true;
+                    break;
+                }
             }
+
+            if (flag) {
+                staffs.remove(deleteIndex);
+                System.out.println("Xóa thành công nhân viên có mã " + id);
+            } else {
+                System.out.println("Không có nhân viên mã " + id);
+            }
+        } catch (Exception e) {
+            System.out.println("Sai định dạng. Nhập lại đê!");
         }
 
-        if (flag) {
-            staffs.remove(deleteIndex);
-            System.out.println("Xóa thành công mã nhân viên " + id);
-        } else {
-            System.out.println("Không có nhân viên có mã " + id);
-        }
+        writeFile();
     }
 
     public void deleteAll() {
@@ -112,21 +206,27 @@ public class StaffManager {
         if (staffs.isEmpty()) {
             System.out.println("Danh sách nhân viên trống!");
         } else {
-            System.out.print("Nhập mã nhân viên: ");
-            String id = scanner.nextLine();
-            for (int i = 0; i < staffs.size(); i++) {
-                if (staffs.get(i).getId().equals(id)) {
-                    index = i;
-                    flag = true;
-                    break;
+            try {
+                System.out.print("Nhập mã nhân viên: ");
+                String id = scanner.nextLine();
+                for (int i = 0; i < staffs.size(); i++) {
+                    if (staffs.get(i).getId().equals(id)) {
+                        index = i;
+                        flag = true;
+                        break;
+                    }
                 }
-            }
-            if (flag) {
-                System.out.println("Lương của nhân viên có mã số " + id + " là: " + staffs.get(index).netSalary());
-            } else {
-                System.out.println("Không có nhân viên có mã " + id);
+                if (flag) {
+                    System.out.println("Lương của nhân viên có mã số " + id + " là: " + staffs.get(index).netSalary());
+                } else {
+                    System.out.println("Không có nhân viên có mã " + id);
+                }
+            } catch (Exception e) {
+                System.out.println("Sai định dạng. Nhập lại đê!");
             }
         }
+
+        writeFile();
     }
 
     public double averageSalary() {

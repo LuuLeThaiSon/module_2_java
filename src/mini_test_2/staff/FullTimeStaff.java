@@ -1,6 +1,8 @@
 package mini_test_2.staff;
 
-public class FullTimeStaff extends Staff {
+import java.io.Serializable;
+
+public class FullTimeStaff extends Staff implements Serializable {
     private double bonus = 0; //thuong
     private double penalty = 0; //phat
     private double hardSalary; //luong cung

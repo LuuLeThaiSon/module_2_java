@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Test {
@@ -56,11 +55,12 @@ public class Test {
 //
 ////        System.out.println(max2);
 
-        LocalDate localDate = LocalDate.now();
-        System.out.println(localDate);
-
-        LocalDate localDate1 = LocalDate.parse("2022-10-22");
-        System.out.println(localDate1);
+//        LocalDate localDate = LocalDate.now();
+//        System.out.println(localDate);
+//
+//        LocalDate localDate1 = LocalDate.parse("2022-10-22");
+//        System.out.println(localDate1);
+        System.out.println("🤟");
     }
 
 }

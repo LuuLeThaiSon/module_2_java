@@ -1,7 +1,7 @@
 package threading.racing_car;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Car carA = new Car("A");
         Car carB = new Car("B");
         Car carC = new Car("C");

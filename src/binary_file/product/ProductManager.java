@@ -39,7 +39,6 @@ public class ProductManager {
 
     public List<Product> readFile(String filePath) {
         List<Product> products = new ArrayList<>();
-        File file = new File(filePath);
 
         try {
 

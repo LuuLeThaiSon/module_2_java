@@ -1,6 +1,8 @@
 package mini_test_2.staff;
 
-public class PartTimeStaff extends Staff {
+import java.io.Serializable;
+
+public class PartTimeStaff extends Staff implements Serializable {
     private float workHour; //luong gio
     private final int CONST = 100000;
 
