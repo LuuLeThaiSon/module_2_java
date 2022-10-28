@@ -72,13 +72,29 @@ public class ProductManager {
             if (product.getId().equals(id)) {
                 try {
                     System.out.print("New name: ");
-                    product.setName(scanner.nextLine());
+                    String name = scanner.nextLine();
+                    if (!name.equals("")) {
+                        product.setName(name);
+                    }
+
                     System.out.print("New brand: ");
-                    product.setBrand(scanner.nextLine());
+                    String brand = scanner.nextLine();
+                    if (!brand.equals("")) {
+                        product.setBrand(brand);
+                    }
+
                     System.out.print("New Price: ");
-                    product.setPrice(Long.parseLong(scanner.nextLine()));
+                    Long price = Long.parseLong(scanner.nextLine());
+                    if (!price.equals("")) {
+                        product.setPrice(price);
+                    }
+
                     System.out.print("New Description: ");
-                    product.setDescription(scanner.nextLine());
+                    String description = scanner.nextLine();
+                    if (!description.equals("")){
+                        product.setDescription(description);
+                    }
+
                 } catch (Exception e) {
                     System.err.println("Error");
                 }
