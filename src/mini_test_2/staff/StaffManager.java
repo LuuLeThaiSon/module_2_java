@@ -245,11 +245,14 @@ public class StaffManager {
     }
 
     public void listFullTimeStaffSalaryLessThanAvg() {
-
-        for (Staff staff : staffs) {
-            if (staff instanceof FullTimeStaff) {
-                if (staff.netSalary() < averageSalary()) {
-                    System.out.println(staff);
+        if (staffs.isEmpty()) {
+            System.out.println("Danh sách nhân viên trống");
+        } else {
+            for (Staff staff : staffs) {
+                if (staff instanceof FullTimeStaff) {
+                    if (staff.netSalary() < averageSalary()) {
+                        System.out.println(staff);
+                    }
                 }
             }
         }
@@ -257,25 +260,33 @@ public class StaffManager {
 
     public void totalSalary() {
         double sumSalary = 0;
-        for (Staff staff : staffs) {
-            sumSalary += staff.netSalary();
-        }
 
-        System.out.println("Tổng lương phải trả là " + sumSalary);
+        if (staffs.isEmpty()) {
+            System.out.println("Danh sách nhân viên trống");
+        } else {
+            for (Staff staff : staffs) {
+                sumSalary += staff.netSalary();
+            }
+
+            System.out.println("Tổng lương phải trả là " + sumSalary);
+        }
     }
 
     public void staffSortBySalary() {
         ArrayList<Staff> fullTimeStaffs = new ArrayList<>();
-        for (Staff staff : staffs) {
-            if (staff instanceof FullTimeStaff) {
-                fullTimeStaffs.add(staff);
+        if (staffs.isEmpty()) {
+            System.out.println("Danh sách nhân viên trống");
+        } else {
+            for (Staff staff : staffs) {
+                if (staff instanceof FullTimeStaff) {
+                    fullTimeStaffs.add(staff);
+                }
+            }
+            Collections.sort(fullTimeStaffs);
+            for (Staff staff : fullTimeStaffs) {
+                System.out.println(staff);
             }
         }
-        Collections.sort(fullTimeStaffs);
-        for (Staff staff : fullTimeStaffs) {
-            System.out.println(staff);
-        }
-
     }
 
     public void display() {
